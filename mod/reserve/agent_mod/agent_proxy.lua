@@ -19,11 +19,11 @@ function M.playerOnline()
     m_player:_initalize()
     m_player:_connectMod()
     local datas = m_player:_loadDB(info.uin)
-
+    
     assert(datas, info.uin)
     pcall(m_player._initData, m_player, info.uin, datas)
     m_player:_delayInit()
-
+    log.info("playerOnline data:"..datas..",".."uin:"..info.uin..",info:"..info)
     return m_player
 end
 
