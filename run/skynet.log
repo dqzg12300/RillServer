@@ -1,0 +1,121 @@
+[:00000001] LAUNCH logger /king/RillServer/run/skynet.log
+[:00000002] LAUNCH snlua bootstrap
+[:00000003] LAUNCH snlua launcher
+[:00000004] LAUNCH snlua cdummy
+[:00000005] LAUNCH harbor 0 4
+[:00000006] LAUNCH snlua datacenterd
+[:00000007] LAUNCH snlua service_mgr
+[:00000008] LAUNCH snlua main_node
+[:00000009] LAUNCH snlua clusterd
+[:00000008] [34m[info] Server start version: 1.0.0 [0m
+[:0000000a] LAUNCH snlua gate
+[:0000000a] Listen on 127.0.0.1:2528
+[:0000000b] LAUNCH snlua clusterproxy node2 agentpool2
+[:0000000c] LAUNCH snlua agentpool agentpool 1
+[:0000000d] LAUNCH snlua wsagent 1
+[:0000000e] LAUNCH snlua wsagent 1
+[:0000000f] LAUNCH snlua wsagent 1
+[:00000010] LAUNCH snlua wsagent 1
+[:00000011] LAUNCH snlua wsagent 1
+[:00000012] LAUNCH snlua wsagent 1
+[:00000013] LAUNCH snlua wsagent 1
+[:00000014] LAUNCH snlua wsagent 1
+[:00000015] LAUNCH snlua wsagent 1
+[:00000016] LAUNCH snlua wsagent 1
+[:00000017] LAUNCH snlua host host
+[:00000017] [34m[host][info] host0 require file:host/console [0m
+[:00000017] [34m[host][info] host0 require file:host/reload [0m
+[:00000017] [34m[host][info] host0 require file:host/stop [0m
+[:00000017] [34m[host][info] host0 require file:host/watch [0m
+[:00000017] [34m[host][info] host0 require file:host/web [0m
+[:00000017] [32m[host][debug] fire event-> awake { n = 0 } [0m
+[:00000017] [32m[host][debug] fire event-> start { n = 0 } [0m
+[:00000017] [host:] Listen console port 12002
+[:00000017] [34m[host][info] Listen web port: 12111 [0m
+[:00000017] [32m[host][debug] start ok host... [0m
+[:00000008] [31m[error] ======start host server=======  [0m
+[:00000018] LAUNCH snlua debug_console 10701
+[:00000018] Start debug console at 127.0.0.1:10701
+[:00000008] [31m[error] start debug_console in port: 10701... [0m
+[:00000019] LAUNCH snlua setup setup 0
+[:00000019] [34m[setup][info] setup0 require file:setup/setup [0m
+[:00000019] [32m[setup][debug] fire event-> awake { n = 0 } [0m
+[:00000019] [32m[setup][debug] fire event-> start { n = 0 } [0m
+[:00000019] [32m[setup][debug] start ok setup... [0m
+[:0000001a] LAUNCH snlua service_provider
+[:0000001b] LAUNCH snlua service_cell datasheet
+[:00000019] [32m[setup][debug] init item conf [0m
+[:00000019] [32m[setup][debug] init pinchidao conf [0m
+[:00000008] [31m[error] =========start setupd...====== [0m
+[:0000001c] LAUNCH snlua clusterproxy node2 login2
+[:0000001d] LAUNCH snlua login login 1
+[:0000001d] [34m[login1][info] login1 require file:login/login [0m
+[:0000001d] [34m[login1][info] login1 require file:login/login_auth [0m
+[:0000001d] [34m[login1][info] login1 require file:login/platfrom [0m
+[:0000001d] [32m[login1][debug] fire event-> awake { n = 0 } [0m
+[:0000001d] [32m[login1][debug] fire event-> start { n = 0 } [0m
+[:0000001d] [32m[login1][debug] start ok login1... [0m
+[:0000001e] LAUNCH snlua dbproxy dbproxy 2
+[:0000001e] [34m[dbproxy2][info] dbproxy2 require file:dbproxy/dbproxy [0m
+[:0000001e] [32m[dbproxy2][debug] fire event-> awake { n = 0 } [0m
+[:0000001e] [32m[dbproxy2][debug] fire event-> start { n = 0 } [0m
+[:0000001e] [32m[dbproxy2][debug] start ok dbproxy2... [0m
+[:0000001f] LAUNCH snlua dbproxy dbproxy 1
+[:0000001f] [34m[dbproxy1][info] dbproxy1 require file:dbproxy/dbproxy [0m
+[:0000001f] [32m[dbproxy1][debug] fire event-> awake { n = 0 } [0m
+[:0000001f] [32m[dbproxy1][debug] fire event-> start { n = 0 } [0m
+[:0000001f] [32m[dbproxy1][debug] start ok dbproxy1... [0m
+[:00000020] LAUNCH snlua center center 2
+[:00000020] [34m[center2][info] center2 require file:center/broadcast [0m
+[:00000020] [34m[center2][info] center2 require file:center/login [0m
+[:00000020] [32m[center2][debug] fire event-> awake { n = 0 } [0m
+[:00000020] [32m[center2][debug] fire event-> start { n = 0 } [0m
+[:00000020] [32m[center2][debug] start ok center2... [0m
+[:00000021] LAUNCH snlua center center 1
+[:00000021] [34m[center1][info] center1 require file:center/broadcast [0m
+[:00000021] [34m[center1][info] center1 require file:center/login [0m
+[:00000021] [32m[center1][debug] fire event-> awake { n = 0 } [0m
+[:00000021] [32m[center1][debug] fire event-> start { n = 0 } [0m
+[:00000021] [32m[center1][debug] start ok center1... [0m
+[:00000022] LAUNCH snlua global global 2
+[:00000022] [34m[global2][info] global2 require file:global/movegame [0m
+[:00000022] [34m[global2][info] global2 require file:global/queryboard [0m
+[:00000022] [34m[global2][info] global2 require file:global/pinchidao [0m
+[:00000022] [32m[global2][debug] fire event-> awake { n = 0 } [0m
+[:00000022] [32m[global2][debug] fire event-> start { n = 0 } [0m
+[:00000022] [32m[global2][debug] start ok global2... [0m
+[:00000023] LAUNCH snlua global global 1
+[:00000023] [34m[global1][info] global1 require file:global/movegame [0m
+[:00000023] [34m[global1][info] global1 require file:global/queryboard [0m
+[:00000023] [34m[global1][info] global1 require file:global/pinchidao [0m
+[:00000023] [32m[global1][debug] fire event-> awake { n = 0 } [0m
+[:00000023] [32m[global1][debug] fire event-> start { n = 0 } [0m
+[:00000023] [32m[global1][debug] start ok global1... [0m
+[:00000024] LAUNCH snlua clusterproxy node2 gateway2
+[:00000025] LAUNCH snlua gateway gateway 1
+[:00000025] Listen on 0.0.0.0:11798
+[:00000025] [gateway1:] start listen port: 11798
+[:00000008] [31m[error] =====start  gateway1 port: 11798 ...====== [0m
+[:00000008] KILL self
+[:00000002] KILL self
+[:00000025] [32m[debug] New client from:  127.0.0.1:48996  fd:  14 [0m
+[:0000001d] [34m[login1][info] check_pw succ account:test_003 then login uid: 50002 [0m
+[:00000021] [center1:] center login: 50002
+[:00000021] [center1:] center register: 50002
+[:00000025] [32m[debug] gate server handler command: register [0m
+[:0000001d] [34m[login1][info] ++++++++++++++++login success uid: 50002 ++++++++++++++++++ [0m
+[:0000001d] Maybe forgot response session 14 from :00000025 : @/king/RillServer/lualib/faci/dispatch.lua:144
+[:00000026] LAUNCH snlua room_pinchidao room_pcd 1000000
+[:00000026] [34m[room_pcd1000000][info] room_pcd1000000 require file:room_pcd/pinchidao [0m
+[:00000026] [34m[room_pcd1000000][info] room_pcd1000000 require file:room_pcd/room_api [0m
+[:00000026] [34m[room_pcd1000000][info] room_pcd1000000 require file:room_pcd/room_pinchidao [0m
+[:00000026] [34m[room_pcd1000000][info] room_pcd1000000 require file:room_pcd/room_pinchidao_logic/room_init [0m
+[:00000026] [32m[room_pcd1000000][debug] fire event-> awake { n = 0 } [0m
+[:00000026] [32m[room_pcd1000000][debug] fire event-> start { n = 0 } [0m
+[:00000026] [32m[room_pcd1000000][debug] start ok room_pcd1000000... [0m
+[:00000026] [32m[room_pcd1000000][debug] =============RoomPinChiDao Init================= [0m
+[:00000023] [32m[global1][debug] ^^^^^^room_pinchidao create^^^^^^^^^^^ { [1000000] = { addr = 38, room_id = 1000000 } } [0m
+[:00000016] Maybe forgot response session 14 from :00000025 : @/king/RillServer/service/reserve/wsagent.lua:62
+[:00000023] [32m[global1][debug] ^^^^^^room_pinchidao enter^^^^^^^^^^^ 1000000 { [1000000] = { addr = 38, room_id = 1000000 } } [0m
+[:00000016] Maybe forgot response session 14 from :00000025 : @/king/RillServer/service/reserve/wsagent.lua:62
+[:0000001f] [32m[dbproxy1][debug] =======mongodb update finish  baseinfo  selecto->  1 ======== [0m
