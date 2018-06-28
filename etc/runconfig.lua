@@ -65,8 +65,8 @@ return {
 		},
 		--host服务
 		host_common = {
-			web 	= 	{node = "node1", port = 12111},
-			console = 	{node = "node1", port = 12002}, --尚未实现
+			web 	= 	{node = "node1", port = 12111,name="web"},
+			console = 	{node = "node1", port = 12010,name="console"}, --尚未实现
 		}
     },
 	--玩家数据表配置

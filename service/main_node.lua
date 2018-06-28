@@ -7,7 +7,12 @@ local servconf = runconf.service
 local nodename = skynet.getenv("nodename")
 
 local function start_host()
-    skynet.uniqueservice("host", "host")
+    for k,v in pairs(servconf.host_common) do
+                if nodename == v.node and v.name=="web" then
+                        ERROR("start "..v.name.." in port: " .. v.port.."...")
+                        skynet.uniqueservice(v.name,"host", v.port)
+                end
+    end
     ERROR("======start host server======= ")
 end
 
@@ -129,13 +134,11 @@ skynet.start(function()
 	cluster.open(nodename)
 	--开启各个服务
 	start_agentpool()
-	start_host()
 	start_console()
 	start_setup()
 	start_login()
 	start_dbproxy()
 	start_center()
-	start_global()
 	start_gateway()
 
 	--exit

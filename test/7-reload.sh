@@ -1,7 +1,7 @@
 #!/usr/bin/expect
 set timeout 20
 set ip 127.0.0.1
-set port 8701
+set port 10701 
 
 
 spawn telnet $ip $port
@@ -12,7 +12,8 @@ sleep .1
 
 
 #game某个模块
-send "reload game game.example\r"
+send "reload wsagent agent.agent_room"
+#send "reload game game.example\r"
 expect "<CMD OK>"
 
 
