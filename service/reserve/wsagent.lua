@@ -40,7 +40,6 @@ function default_dispatch(cmd, msg)
 	if not ok then
 		error(msg)
     end
-    
     return ret 
 end
 

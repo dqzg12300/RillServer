@@ -7,7 +7,7 @@ function RoomDDZ:initialize()
 	self._players={}
 end
 
-function RoomMove:broadcast(msg,filterUid)
+function RoomDDZ:broadcast(msg,filterUid)
 	for k,v in ipairs(self._players) do
 		if filterUid and filterUid~=k then
 			libcenter.send2client(k,msg)

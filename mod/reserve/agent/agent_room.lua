@@ -45,6 +45,8 @@ function M.create_room(msg)
 	end 
 	create_id = 1000000--libdbproxy.inc_room()  
 	local addr = lib.create(create_id)
+	msg.error="success"
+	return msg 
 end 
 
 function M.enter_room(msg)

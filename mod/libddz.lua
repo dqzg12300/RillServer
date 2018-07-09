@@ -19,7 +19,10 @@ end
 
 
 function M.create(id)
-	return call("ddz.create", id)
+	DEBUG("libddz begin")
+	local ret=call("ddz.create", id)
+	DEBUG("libddz end")
+	return ret	
 end
 
 function M.enter(id, uid, data)

@@ -12,8 +12,10 @@ local event=module.event
 local Room_Map={}
 
 function dispatch.create(room_id)
+	DEBUG("ddz begin")
 	local roomAddr=skynet.newservice("room_ddz","room_ddz",room_id)
-	skynet.call(addr,"lua","room_api.start","")
-	Room_Map[room_id]={addr=addr,}
-	DEBUG("------room_ddz create------",inspect(Room_Map))
+	skynet.call(roomAddr,"lua","room_api.start","test")
+	DEBUG("------room_ddz create------")
+	Room_Map[room_id]={addr=roomAddr,}
+	return true,skynet.self(),Room_Map[room_id]
 end

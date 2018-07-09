@@ -11,10 +11,11 @@ function RoomDDZ:enter(data)
 	local uid=data.uid
 	local player={
 		uid=uid,
-		agent=data.agent
-		node=data.node
+		agent=data.agent,
+		node=data.node,
 	}
 	self._players[uid]=player
+	DEBUG("roomDDZ enter")
 	self:broadcast({cmd="room_move.add",uid=uid,},uid)
 	return SYSTEM_ERROR.success
 end
