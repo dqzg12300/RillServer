@@ -14,6 +14,10 @@ end
 
 local function call(cmd, id, ...)
 	local global = fetch_global(id)
+	if not global then
+		ERROE("cmd:"..cmd..",id:"..id.." is nil")
+		return false
+	end
 	return skynet.call(global, "lua", cmd, id, ...)
 end
 

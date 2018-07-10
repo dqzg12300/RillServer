@@ -46,6 +46,14 @@ function M.send2client(uid, msg)
 	skynet.call(center, "lua", "broadcast.send2client", uid, msg)
 end
 
+function M.send2clientcmd(uid, cmd)
+	local msg={}
+	msg._cmd=cmd
+	msg._check=0
+    local center = M.fetch_centerd(uid)
+	skynet.call(center, "lua", "broadcast.send2client", uid, msg)
+end
+
 function M.broadcast2client(msg)
 	M.broadcast("broadcast.broadcast2client", msg)
 end

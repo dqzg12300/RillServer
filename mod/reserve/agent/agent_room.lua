@@ -25,8 +25,6 @@ local function init_modules()
 end
 init_modules() -- local libmove = require "libmove"
 
-
-
 local M = env.dispatch
 local room_id = nil --房间id
 local create_id = nil 
@@ -36,6 +34,7 @@ local function cal_lib(game)
 	return assert(libmodules[game])
 end
 
+
 function M.create_room(msg) 
 	lib = cal_lib(msg.game)
 	if not lib then
@@ -43,7 +42,8 @@ function M.create_room(msg)
 		msg.error = "game not found"
 		return 
 	end 
-	create_id = 1000000--libdbproxy.inc_room()  
+	--create_id = libdbproxy.inc_room()  
+	create_id=1000000
 	local addr = lib.create(create_id)
 	msg.result=0
 	return msg 
@@ -54,22 +54,34 @@ function M.enter_room(msg)
 		INFO("enter room fail, already in room")
 		return msg
 	end
+	if not lib then
+		lib=cal_lib(msg.game)
+	end
 	--暂时 这样处理
-	-- if not msg.id and create_id then
-	-- 	msg.id = create_id
-	-- end 
-	msg.id = 1000000
+	--if not msg.id and create_id then
+	--	msg.id = create_id
+	--end 
+	msg.id=1000000	
+	if not msg.id then
+		ERROR("enter room msg.id is nil")
+		msg.error="msg.id is nil"
+		msg.result=-1
+		return msg
+	end
+
 	local data = {
 		uid = env.get_player().uid,
 		agent = skynet.self(),
 		node = node,
 	}
-
 	local isok, forward, data = lib.enter(msg.id, data)
 	if isok then
 		msg.result = 0
 		room_id = msg.id
 	else
+		if forward then
+			msg.code=forward
+		end
 		msg.result = 1
 	end
 	return msg
@@ -80,6 +92,9 @@ function M.leave_room(msg)
 		msg.error="not found room"
 		msg.result=-1
 		return
+	end
+	if not lib then
+		lib=cal_lib(msg.game)
 	end
 
 	local uid = env.get_player().uid

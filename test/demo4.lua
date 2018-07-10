@@ -5,7 +5,7 @@ local Hander={}
 function login_login(msg)
 	print(msg.error)
 	if msg.error=="login success" then
-		ws.create_room("ddz")
+		ws.enter_room("ddz",50032)
 	else 
 		print("account:"..msg.account..",login err:",msg.error)
 	end
@@ -39,7 +39,7 @@ function Hander.CallBack(msg)
 end
 
 ws.init(nil,nil,Hander)
-ws.login("king","111111")
+ws.login("lijin","111111")
 ws.start()
 
 
