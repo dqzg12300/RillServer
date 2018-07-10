@@ -14,11 +14,23 @@ function login_login(msg)
 
 end
 
+function create_room(msg)
+	print("create_room ret:"..msg.result)
+	ws.enter_room()
+end
+
+
+function enter_room(msg)
+	print("enter_room ret:"..msg.result)
+	ws.leave_room()
+end
+
+function leave_room(msg)
+	print("leave_room ret:"..msg.result)
+end
 
 function Hander.CallBack(msg)
-	print("error:"..msg.error)
 	funcname=string.gsub(msg._cmd,"%.","_")		
-	print(funcname)
 	if _G[funcname] then 
 		_G[funcname](msg)
 	end

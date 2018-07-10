@@ -41,7 +41,6 @@ end
 
 function dispatch.leave(uid)
 	local id = Player_Map[uid]
-	
 	local  room = Room_Map[id]
 	if not room then
 		skynet.error("movegame leave not room "..id)

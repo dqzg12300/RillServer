@@ -22,7 +22,7 @@ function dispatch.enter(data)
 end
 
 function dispatch.leave(uid)
-	return ROOM:leave(data)
+	return ROOM:leave(uid)
 end
 
 

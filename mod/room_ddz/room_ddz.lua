@@ -15,12 +15,16 @@ function RoomDDZ:enter(data)
 		node=data.node,
 	}
 	self._players[uid]=player
-	DEBUG("roomDDZ enter")
+	DEBUG("roomDDZ enter uid:"..uid)
 	self:broadcast({cmd="room_move.add",uid=uid,},uid)
 	return SYSTEM_ERROR.success
 end
 
 function RoomDDZ:leave(uid)
+	if not uid then
+		ERROR("roomDDZ leave uid is nil")
+		return SYSTEM_ERROR.error
+	end
 	self._players[uid]=nil
 	self:broadcast({cmd="movegame.leave",uid=uid},uid)
 	return SYSTEM_ERROR.success

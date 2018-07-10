@@ -118,5 +118,8 @@ function M.enter_room()
 	M.send("enter_room", {})
 end
 
+function M.leave_room()
+	M.send("leave_room",{})
+end
 
 return M
