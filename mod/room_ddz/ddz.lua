@@ -29,17 +29,24 @@ local function show_card()
 	end
 end
 
-local function licensing()
-	local play_card={card1={},card2={},card3={},hand={}}
+local function licensing(uids)
+	local c1=uids[1]
+	local c2=uids[2]
+	local c3=uids[3]
+	local play_card={cards={},hand={}}
+	play_card.cards[c1]={}
+	play_card.cards[c2]={}
+	play_card.cards[c3]={}
+
 	for i=1,#card do
 		if i<=#card-3 then
 		--派发
 			if i%3==0 then
-				table.insert(play_card.card3,card[i])	
+				table.insert(play_card.cards[c1],card[i])
 			elseif i%2==0 then
-				table.insert(play_card.card2,card[i])
+				table.insert(play_card.cards[c2],card[i])
 			else
-				table.insert(play_card.card1,card[i])
+				table.insert(play_card.cards[c3],card[i])
 			end
 		else
 			table.insert(play_card.hand,card[i])
@@ -48,10 +55,10 @@ local function licensing()
 	return play_card
 end
 
-function M.game_start()
+function M.game_start(uids)
 	card_init()	
 	shuffle()
-	return licensing()
+	return licensing(uids)
 end
 
 
