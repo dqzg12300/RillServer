@@ -96,6 +96,8 @@ end
 
 function CMD.kick()
     DEBUG("-------agent kick exit uid("..account.uid..")------")
+	local kick=env.dispatch["kick_room"]
+	kick()
     env.logout(account)
     return true
 end 

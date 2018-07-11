@@ -29,6 +29,7 @@ local M = env.dispatch
 local room_id = nil --房间id
 local create_id = nil 
 local lib = nil
+local cur_game=nil
 
 local function cal_lib(game)
 	return assert(libmodules[game])
@@ -76,6 +77,7 @@ function M.enter_room(msg)
 	}
 	local isok, forward, data = lib.enter(msg.id, data)
 	if isok then
+		cur_game=msg.game
 		msg.result = 0
 		room_id = msg.id
 	else
@@ -104,3 +106,21 @@ function M.leave_room(msg)
 	msg.result=0
 	return msg
 end
+
+--踢人或掉线时,对房间的清理操作
+function M.kick_room()
+	if not room_id then
+		DEBUG("kick room,room id is nil")
+		return
+	end
+	if not lib and cur_game then
+		lib=cal_lib(cur_game)
+	end
+
+	local uid=env.get_player().uid
+	if lib.leave(room_id,uid) then
+		DEBUG("kick room,uid:"..uid)
+		room_id=nil
+	end
+end
+

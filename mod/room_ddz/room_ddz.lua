@@ -2,11 +2,14 @@ local RoomDDZ=require "room_ddz.room_ddz_logic.room_init"
 local libcenter=require "libcenter"
 
 local tablex=require "pl.tablex"
+local timer=require "timer"
 
 function RoomDDZ:is_player_num_overload()
 	return tablex.size(self._players)>=3
 end
 
+local t
+local idx
 
 function RoomDDZ:enter(data)
 	local uid=data.uid
@@ -18,8 +21,11 @@ function RoomDDZ:enter(data)
 	self._players[uid]=player
 	DEBUG("roomDDZ enter uid:"..uid)
 	self:broadcast({cmd="room_move.add",uid=uid,},uid)
+
 	if self:is_player_num_overload() then
-		self:broadcast({cmd="game_start",uid=uid})
+		t=timer:new()
+		t:init()
+		idx=t:register(10,self.gamestart,1,self)
 		DEBUG("room player is overload")
 	end
 	DEBUG("player size:"..tablex.size(self._players))
@@ -33,6 +39,13 @@ function RoomDDZ:leave(uid)
 	end
 	self._players[uid]=nil
 	self:broadcast({cmd="movegame.leave",uid=uid},uid)
+	DEBUG("ddz leave")
+	DEBUG(t)
+	DEBUG(idx)
+	if t and idx then 
+		t:unregister(idx)
+		DEBUG("unregister:"..idx)
+	end
 	return SYSTEM_ERROR.success
 end
 
