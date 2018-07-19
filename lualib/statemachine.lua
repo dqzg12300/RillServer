@@ -14,14 +14,13 @@ local function create_transition(name)
   local can, to, from, params
 
   local function transition(self, ...)
+
     if self.asyncState == NONE then
       can, to = self:can(name)
       from = self.current
       params = { self, name, from, to, ...}
-
       if not can then return false end
       self.currentTransitioningEvent = name
-
       local beforeReturn = call_handler(self["onbefore" .. name], params)
       local leaveReturn = call_handler(self["onleave" .. from], params)
 
@@ -93,7 +92,7 @@ function machine.create(options)
   for _, event in ipairs(options.events or {}) do
     local name = event.name
     fsm[name] = fsm[name] or create_transition(name)
-    fsm.events[name] = fsm.events[name] or { map = {} }
+    fsm.events[name] =fsm.events[name] or { map = {} }
     add_to_map(fsm.events[name].map, event)
   end
   

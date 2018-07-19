@@ -44,14 +44,10 @@ function timer.on_time_out(self)
 	if not callbacks then
 		return
 	end
-
 	for idx, cb in pairs(callbacks) do
-		DEBUG("ontimeout")
-		DEBUG(cb.parms)
 		cb.func(cb.parms)
 		self.timer_idxs[idx] = nil
 	end
-
 	self.callbacks[self.inc] = nil
 end
 
@@ -76,6 +72,7 @@ function timer.register(self, sec, f, loop,parms)
 	local cb={}
 	cb.func=f
 	cb.parms=parms
+	cb.loop=loop
 	callbacks[self.timer_idx] =cb
 	return self.timer_idx
 end

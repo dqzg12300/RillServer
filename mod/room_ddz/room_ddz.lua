@@ -25,7 +25,7 @@ function RoomDDZ:enter(data)
 	if self:is_player_num_overload() then
 		t=timer:new()
 		t:init()
-		idx=t:register(10,self.gamestart,1,self)
+		idx=t:register(3,self.gamestart,0,self)
 		DEBUG("room player is overload")
 	end
 

@@ -14,6 +14,7 @@ end
 local function card_init()
 	local min=cardtype.min_card
 	local max=cardtype.max_card
+	card={}
 	for i=1,4 do
 		for y=min,max do
 			table.insert(card,{data=y,color=i})
@@ -56,10 +57,10 @@ local function licensing(uids)
 end
 
 function M.game_start(uids)
-	card_init()	
 	shuffle()
 	return licensing(uids)
 end
 
+card_init()	
 
 return M
