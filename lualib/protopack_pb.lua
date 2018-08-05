@@ -1,7 +1,6 @@
 local skynet = require "skynet"
-local json = require "cjson"
 local log = require "log"
-local pb = require("luapbintf")
+local pb = nil
 local io = require "io" 
 local crc32 = require "crc32" 
 local tool = require "tool"
@@ -33,17 +32,20 @@ local function analysis_file(path)
 	file:close()  
 end
 
---导入proto文件，并analysis_file
-local path = skynet.getenv("app_root").."proto"
-pb.add_proto_path(path)
-lfstool.attrdir(path, function(file)
-	local file = string.match(file, path.."/(.+%.proto)") --获取文件名
-	if file then
-		--log.info("import proto file:"..file)
-		pb.import_proto_file(file) --相对路径
-		analysis_file(path.."/"..file) --绝对路径
-	end
-end)
+local function init()
+	--导入proto文件，并analysis_file
+	local path = skynet.getenv("app_root").."proto"
+	pb.add_proto_path(path)
+	lfstool.attrdir(path, function(file)
+		local file = string.match(file, path.."/(.+%.proto)") --获取文件名
+		if file then
+			log.info("import proto file:"..file)
+			pb.import_proto_file(file) --相对路径
+			analysis_file(path.."/"..file) --绝对路径
+		end
+	end)
+end
+
 
 --打印二进制string，用于调试
 local function bin2hex(s)
@@ -62,7 +64,10 @@ function M.pack(cmd, check, msg)
 	-->i2:前面两位为长度
 	-->i4:int32 checkcode
     -->I4:uint32 cmd_code 
-	
+	if not pb then
+		pb=require("luapbintf")
+		init()
+	end
 	--code
 	local code = name2code[cmd]
 	if not code then
@@ -86,6 +91,10 @@ function M.pack(cmd, check, msg)
 end
 
 function M.unpack(str)
+	if not pb then
+		pb=require("luapbintf")
+		init()
+	end
 	log.info("recv:"..bin2hex(str))
 	local pblen = string.len(str)-4-4
 	local f = string.format("> i4 I4 c%d", pblen)

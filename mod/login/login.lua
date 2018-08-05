@@ -14,12 +14,18 @@ local forward = module.forward
 local event = module.event
 
 local login_auth = require "login.login_auth"
+local login_result_code=require "loginresultcode"
 
 
 function forward.login(fd, msg, source)
 	local sdkid = msg.sdkid --ƽ̨ID
     local account = msg.account
 	local password = msg.password
+
+	local msgresult={}
+	msgresult.account=msg.account
+	msgresult._cmd=msg._cmd
+	msgresult._check=msg._check
 	--key
 	key_seq = key_seq + 1
 	local key = env.id*10000 + key_seq
@@ -29,8 +35,8 @@ function forward.login(fd, msg, source)
 	if not isok then
 		ERROR("+++++++++++ account: ",inspect(account), " login login_auth fail +++++++++")
 		log.debug("%s login fail, wrong password ", account)
-		msg.error = "login fail, wrong password"
-		return msg
+		msgresult.result = login_result_code.LOGIN_WRONG_PASSWORD
+		return msgresult
 	end
 
 	--center
@@ -42,8 +48,8 @@ function forward.login(fd, msg, source)
 	}
 	if not libcenter.login(uid, data) then
 		ERROR("+++++++++++", uid, " login fail, center login +++++++++")
-		msg.error = "login fail, center login fail"
-		return msg
+		msgresult.result = login_result_code.LOGIN_CENTER_FAIL
+		return msgresult
 	end
 	--game
 	data = {
@@ -61,8 +67,8 @@ function forward.login(fd, msg, source)
 	if not ret then
 		libcenter.logout(uid, key)
 		ERROR("++++++++++++", uid, " login fail, load data err +++++++++")
-		msg.error = "login fail, load data err"
-		return msg
+		msgresult.result = login_result_code.LOGIN_LOAD_DATA_FAIL
+		return msgresult
 	end
 	--center
 	local data = {
@@ -72,8 +78,8 @@ function forward.login(fd, msg, source)
 	if not libcenter.register(uid, data) then
 		libcenter.logout(uid, key)
 		ERROR("++++++++++++", uid, " login fail, register center fail +++++++++")
-		msg.error = "login fail, register center fail"
-		return msg
+		msgresult.result =login_result_code.LOGIN_REGISTER_CENTER_FAIL
+		return msgresult
 	end
 	--gate
 	local data = {
@@ -85,12 +91,12 @@ function forward.login(fd, msg, source)
 	if not skynet.call(source, "lua", "register", data) then
 		libcenter.logout(uid, key)
 		ERROR("++++++++++++", uid, " login fail, register gate fail +++++++++")
-		msg.error = "login fail, register gate fail"
-		return msg
+		msgresult.result = login_result_code.LOGIN_REGISTER_GATE_FILE
+		return msgresult
 	end
-	msg.uid = uid
-	msg.error = "login success"
+	msgresult.uid = uid
+	msgresult.result = 0
 	
 	INFO("++++++++++++++++login success uid:", uid, "++++++++++++++++++")
-	return msg
+	return msgresult
 end

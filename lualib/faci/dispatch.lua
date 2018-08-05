@@ -143,6 +143,7 @@ end
 
 function client_dispatch(session, source, str)
 	--特殊用法，将session用作fd，减少再次转发给gate
+
 	local fd = session
 	local cmd, check, msg = protopack.unpack(str)
 	if not cmd then
@@ -162,7 +163,7 @@ function client_dispatch(session, source, str)
 	end
 	
 	if ret then
-		local rcmd, rcheck = ret._cmd, ret._check
+		local rcmd, rcheck = ret._cmd.."result", ret._check
 		ret._cmd = nil
 		ret._check = nil
 		local data = protopack.pack(rcmd, rcheck, ret)

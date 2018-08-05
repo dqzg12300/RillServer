@@ -1,29 +1,20 @@
-package.cpath = "../luaclib/?.so"
-package.path = "../skynet/lualib/?.lua;../lualib/?.lua;../examples/?.lua"
+package.cpath = "../luaclib/?.so;../skynet/luaclib/?.so"
+package.path = "../skynet/lualib/?.lua;../lualib/?.lua;../examples/?.lua;./?.lua;../skynet/lualib/?.lua"
 
 if _VERSION ~= "Lua 5.3" then
 	error "Use lua 5.3"
 end
 
 
-local socket = require "clientwebsocket"
+local socket = require "client.socket"
 local json = require "cjson"
 local tool = require "tool"
-
-local fd = assert(socket.connect("127.0.0.1", 8799))
+local packpb= require "protopackpb"
+local fd = assert(socket.connect("127.0.0.1", 11798))
 
 local function request(name, args, session)
-    local t = {
-        _cmd = name,
-		_check = 0,
-        seq = session,
-    }
-    if type(args) == "table" then
-        for k, v in pairs(args) do
-            t[k] = v
-        end
-    end
-    local str = json.encode(t)
+    print(args)
+    local str = packpb.pack(name,0,args)
     return str
 end
 
@@ -64,7 +55,7 @@ local function dispatch_package()
 	end
 end
 
-send_request("login.Login", {account="2", password="11111"})
+send_request("login.login", {account="king", password="11111",sdkid=1})
 
 while true do
 	dispatch_package()

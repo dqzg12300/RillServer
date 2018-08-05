@@ -128,6 +128,7 @@ end
 
 
 skynet.start(function()
+
 	INFO("Server start version: " .. runconf.version)
 	--集群信息
 	cluster.reload(runconf.cluster)
@@ -141,7 +142,6 @@ skynet.start(function()
 	start_dbproxy()
 	start_center()
 	start_gateway()
-
 	--exit
     skynet.exit()
 end)

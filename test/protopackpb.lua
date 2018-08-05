@@ -22,6 +22,7 @@ local function analysis_file(path)
 			package = s
 		end
 		local s, c = string.gsub(line, "^%s*message%s*([^%s]+)%s*[{%s].*$", "%1")
+		print(string.format("s:%s c:%d", s, c))
 		if c > 0 then
 			local name = package.."."..s
 			local code = crc32.hash(name)
