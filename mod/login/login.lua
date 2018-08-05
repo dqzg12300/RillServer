@@ -14,8 +14,6 @@ local forward = module.forward
 local event = module.event
 
 local login_auth = require "login.login_auth"
-local login_result_code=require "loginresultcode"
-
 
 function forward.login(fd, msg, source)
 	local sdkid = msg.sdkid --ƽ̨ID
@@ -35,7 +33,7 @@ function forward.login(fd, msg, source)
 	if not isok then
 		ERROR("+++++++++++ account: ",inspect(account), " login login_auth fail +++++++++")
 		log.debug("%s login fail, wrong password ", account)
-		msgresult.result = login_result_code.LOGIN_WRONG_PASSWORD
+		msgresult.result = AUTH_ERROR.password_wrong
 		return msgresult
 	end
 
@@ -48,7 +46,7 @@ function forward.login(fd, msg, source)
 	}
 	if not libcenter.login(uid, data) then
 		ERROR("+++++++++++", uid, " login fail, center login +++++++++")
-		msgresult.result = login_result_code.LOGIN_CENTER_FAIL
+		msgresult.result = AUTH_ERROR.center_fail
 		return msgresult
 	end
 	--game
@@ -67,7 +65,7 @@ function forward.login(fd, msg, source)
 	if not ret then
 		libcenter.logout(uid, key)
 		ERROR("++++++++++++", uid, " login fail, load data err +++++++++")
-		msgresult.result = login_result_code.LOGIN_LOAD_DATA_FAIL
+		msgresult.result = AUTH_ERROR.load_data_fail
 		return msgresult
 	end
 	--center
@@ -78,7 +76,7 @@ function forward.login(fd, msg, source)
 	if not libcenter.register(uid, data) then
 		libcenter.logout(uid, key)
 		ERROR("++++++++++++", uid, " login fail, register center fail +++++++++")
-		msgresult.result =login_result_code.LOGIN_REGISTER_CENTER_FAIL
+		msgresult.result =AUTH_ERROR.center_register_fail
 		return msgresult
 	end
 	--gate
@@ -91,11 +89,11 @@ function forward.login(fd, msg, source)
 	if not skynet.call(source, "lua", "register", data) then
 		libcenter.logout(uid, key)
 		ERROR("++++++++++++", uid, " login fail, register gate fail +++++++++")
-		msgresult.result = login_result_code.LOGIN_REGISTER_GATE_FILE
+		msgresult.result = AUTH_ERROR.LOGIN_REGISTER_GATE_FILE
 		return msgresult
 	end
 	msgresult.uid = uid
-	msgresult.result = 0
+	msgresult.result = SYSTEM_ERROR.success
 	
 	INFO("++++++++++++++++login success uid:", uid, "++++++++++++++++++")
 	return msgresult

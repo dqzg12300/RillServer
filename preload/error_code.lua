@@ -31,6 +31,10 @@ AUTH_ERROR = {
 	head_url_nil       = add{code = 0x010b, desc = "头像地址为空"},
 	nickname_nil       = add{code = 0x010c, desc = "昵称为空"},
 	sex_nil            = add{code = 0x010d, desc = "性别为空"},
+	center_fail		   = add{code = 0x010e, desc = "中心服登录失败"},
+	load_data_fail	   = add{code = 0x010f, desc = "加载玩家信息失败"},
+	center_register_fail=add{code = 0x0110, desc = "中心服注册信息失败"},
+	register_fail      = add{code = 0x0111, desc = "注册信息失败"},
 }
 
 GAME_ERROR = {
