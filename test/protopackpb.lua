@@ -22,11 +22,10 @@ local function analysis_file(path)
 			package = s
 		end
 		local s, c = string.gsub(line, "^%s*message%s*([^%s]+)%s*[{%s].*$", "%1")
-		print(string.format("s:%s c:%d", s, c))
 		if c > 0 then
 			local name = package.."."..s
 			local code = crc32.hash(name)
-			print(string.format("analysis proto file:%s->%d(%x)", name, code, code))
+			--print(string.format("analysis proto file:%s->%d(%x)", name, code, code))
 			name2code[name] = code
 			code2name[code] = name
 		end
@@ -44,7 +43,7 @@ pb.add_proto_path("/")
 lfstool.attrdir(pbpath, function(file)
 	local file = string.match(file, "(.+%.proto)")
 	if file then
-		print("import proto file:"..file)
+		--print("import proto file:"..file)
 		pb.import_proto_file(string.sub(file,2))
 		analysis_file(file)
 	end

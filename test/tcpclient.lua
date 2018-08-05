@@ -73,14 +73,11 @@ local function dispatch_package()
 		if string.len(recvstr) < 2 then
 			return nil
 		end
-		print("recv: " .. tool.dump(v)) 
-
 		local len = string.unpack("> i2", recvstr)
 		while string.len(recvstr)-2 >= len do
 			local f = string.format("> i2 c%d", len)
 			local len, str = string.unpack(f, recvstr)
 			local cmd, check, msg = protopack.unpack(str)
-			print(string.format("recv: %s -> %s",cmd, tool.dump(msg)))
 			recvstr = string.sub(recvstr, len+1+2, string.len(recvstr))
 	        if cb then 
 				cb(cmd,check,msg)

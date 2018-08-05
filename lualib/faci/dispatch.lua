@@ -77,7 +77,6 @@ local function lua_dispatch(session, addr, cmd, ...)
 		skynet.ret()
 		return false
 	end
-	
 	skyret(table.unpack(ret))
 end
 
@@ -137,7 +136,6 @@ function local_dispatch(cmd1, cmd2, fd, msg, source)
         log.error("local_dispatch handle msg error, cmd = %s, msg = %s, err=%s", cmd1, tool.dump(msg), ret)
 		return true --报错的情况也表示分发到位
     end
-	
     return true, ret 
 end
 

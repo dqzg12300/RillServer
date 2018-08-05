@@ -103,7 +103,8 @@ function CMD.kick()
 end 
 
 function CMD.send2client(msg)
-    local cmd = msg._cmd.."result"
+
+    local cmd = msg._cmd
 	local check = msg._check
 	msg._cmd = nil
 	msg._check = nil
