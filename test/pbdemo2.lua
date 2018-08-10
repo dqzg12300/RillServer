@@ -8,7 +8,7 @@ local Hander={}
 function login_login(msg)
 	print(msg.error)
 	if msg.result==0 then
-		client.create_room("ddz")
+		client.enter_room("ddz")
 	else 
 	 	print("account:"..msg.account..",login err:",msg.error)
 	end
