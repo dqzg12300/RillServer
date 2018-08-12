@@ -18,7 +18,7 @@ if [ $cmd = "all" ];then
 	echo -e "\n make luaclib"
 	cd $dir/lualib-src  && pwd
 	make linux
-	
+	cp $dir/luaclib/luapbintf.bak $dir/luaclib/luapbintf.so	
 	#echo -e "\n make LuaPbIntf"
 	#cd $dir/lualib-src/LuaPbIntf/build && pwd
 	#make config=release 
