@@ -107,7 +107,7 @@ function module.watch(acm)
 	local logined = 0		--成功登陆
 	local logining = 0		--登陆流程
 	for i, v in pairs(env.users) do
-		if v.game then
+		if v.agent then
 			logined = logined + 1
 		else
 			logining = logining + 1

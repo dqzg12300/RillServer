@@ -78,7 +78,7 @@ local function build_selector(selector)
             end
         end
     end
-    local str = table.concat(t, ",")
+    local str = table.concat(t, " and ")
     return str
 end
 
